@@ -1,57 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import styled, {createGlobalStyle} from 'styled-components';
+import Authorization, { BaseInputStyle } from './pages/Authorization/Authorization';
+import { getDataUsers } from "./store/store";
+import { useAppDispatch } from './store/hooks';
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #fff;
+  }
+
+  body {
+    font-family: OpenSans, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    background-color: #19161F;
+  }
+
+  input,
+  button {
+    outline: none;
+    border: none;
+  }
+
+  .InputMask {
+    ${BaseInputStyle}
+  }
+`;
+
+const AppStyle = styled.div`
+  min-height: 100vh;
+`;
+
+const AppWrapper = styled.div`
+  max-width: 390px;
+  padding: 0 10px;
+  margin: 0 auto;
+`;
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(getDataUsers());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <AppWrapper>
+      <GlobalStyle />
+      <AppStyle>
+        <Authorization />
+      </AppStyle>
+    </AppWrapper>
   );
 }
 
