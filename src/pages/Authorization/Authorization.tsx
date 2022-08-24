@@ -45,11 +45,7 @@ export interface RegFormData {
 
 const Authorization = () => {
     return(
-        <Routes>
-            <Route path="/" element={<AuthorizationForm />} />
-            <Route path="/registration" element={<RegistrationForm />} />
-            <Route path="/contacts" element={<Contacts/>} />
-        </Routes>
+        <></>
     );
 };
 

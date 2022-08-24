@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { InputStyle } from "../../pages/Authorization/Authorization";
 import InputMask from "react-input-mask";
 import { Button } from "../../pages/Authorization/Authorization";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { appendErrors, SubmitHandler, useForm } from "react-hook-form";
 import { DataUsers, IsRegFields } from "../../app.interface";
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { successAuthForm } from "../../store/store";
+import { setDataUser } from "../../store/store";
+import { useNavigate } from "react-router-dom";
+import { getAllByPlaceholderText } from "@testing-library/react";
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -41,23 +43,30 @@ export const ButtonRegistration = styled.a`
 `;
 
 const AuthorizationForm = () => {
-  const isAuth = useAppSelector(state => state.isAuthForm.isAuth);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
   } = useForm<IsRegFields>();
-
-  const dataUsers = useAppSelector(state => state.dataUsers.dataUsers);
+  const dataUsers = useAppSelector(state => state.root.dataUsers);
 
   const onSubmit: SubmitHandler<IsRegFields> = (data) => {
-    dataUsers.forEach((element: any) => {
-      if(data.tel === element.tel && data.password === element.password) {
-        dispatch(successAuthForm());
-        
+    let success: boolean = false;
+
+    dataUsers.forEach((dataUser: DataUsers) => {
+      if(data.tel === dataUser.tel && data.password === dataUser.password) {
+        dispatch(setDataUser(dataUser.name));
+        localStorage.setItem('nameUser', dataUser.name);
+        navigate('/contacts');
+        success = true; 
       }
-    })
+    });
+
+    if(success === false) {
+      alert('Неверный номер или пароль')
+    }
   };
 
   return (

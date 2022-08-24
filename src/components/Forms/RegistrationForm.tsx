@@ -14,12 +14,12 @@ import { IsRegFields } from "../../app.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { successRegForm } from "../../store/store";
 import { InputStyle } from "../../pages/Authorization/Authorization";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
 import { Button } from "../../pages/Authorization/Authorization";
 import { DataUsers } from "../../app.interface";
 
 const RegistrationForm = () => {
-  const stateRegForm = useAppSelector(state => state.isRegForm.isReg);
+  const stateRegForm = useAppSelector((state) => state.root.isReg);
   const dispatch = useAppDispatch();
 
   const {
@@ -29,14 +29,14 @@ const RegistrationForm = () => {
   } = useForm<IsRegFields>();
 
   const onSubmit: SubmitHandler<IsRegFields> = (data) => {
-    let dataUsers: DataUsers = {
+    let setDataUsers: DataUsers = {
       id: uuid(),
       name: data.name,
       tel: data.tel,
       password: data.password,
-    }
+    };
 
-    axios.post("http://localhost:3001/users", dataUsers);
+    axios.post("http://localhost:3001/users", setDataUsers);
     dispatch(successRegForm());
   };
 
@@ -48,7 +48,7 @@ const RegistrationForm = () => {
           {errors?.tel && <div style={{ color: "red" }}>Введите телефон</div>}
           <InputMask
             className="InputMask"
-            {...register("tel", {required: true})}
+            {...register("tel", { required: true })}
             type="tel"
             placeholder="Номер телефона"
             autoComplete="off"
@@ -71,7 +71,12 @@ const RegistrationForm = () => {
             autoComplete="off"
           />
         </Inputs>
-        <Button type="submit" style={{ color: stateRegForm ? 'green' : '#fff' }}>{stateRegForm ? 'Успешно!' : 'Зарегистрироваться'}</Button>
+        <Button
+          type="submit"
+          style={{ color: stateRegForm ? "green" : "#fff" }}
+        >
+          {stateRegForm ? "Успешно!" : "Зарегистрироваться"}
+        </Button>
         <ButtonRegistration as={Link} to="/">
           Вернуться к входу
         </ButtonRegistration>
@@ -81,5 +86,3 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
-
-

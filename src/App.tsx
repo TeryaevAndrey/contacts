@@ -1,8 +1,13 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components';
-import Authorization, { BaseInputStyle } from './pages/Authorization/Authorization';
+import { BaseInputStyle } from './pages/Authorization/Authorization';
 import { getDataUsers } from "./store/store";
 import { useAppDispatch } from './store/hooks';
+import { Routes, Route } from 'react-router-dom';
+import { useAppSelector } from './store/hooks';
+import AuthorizationForm from './components/Forms/AuthorizationForm';
+import RegistrationForm from './components/Forms/RegistrationForm';
+import Contacts from './pages/Contacts/Contacts';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -32,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppStyle = styled.div`
+  position: relative;
   min-height: 100vh;
 `;
 
@@ -42,6 +48,7 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
+  const nameUser = useAppSelector(state => state.root.name);
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -52,7 +59,11 @@ function App() {
     <AppWrapper>
       <GlobalStyle />
       <AppStyle>
-        <Authorization />
+          <Routes>
+            <Route path="/" element={<AuthorizationForm />} />
+            <Route path="/registration" element={<RegistrationForm />} />
+            <Route path="/contacts" element={<Contacts name={nameUser}/>} />
+          </Routes>
       </AppStyle>
     </AppWrapper>
   );

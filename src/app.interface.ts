@@ -6,8 +6,8 @@ export interface IsRegFields {
 
 export interface InitialState {
   isReg: boolean;
-  isAuth: boolean;
   dataUsers: any;
+  name: string;
 }
 
 export interface DataUsers {
@@ -15,4 +15,9 @@ export interface DataUsers {
   name: string;
   tel: string;
   password: string;
+};
+
+export interface ContactInfo {
+  name: string;
+  tel: string;
 };
