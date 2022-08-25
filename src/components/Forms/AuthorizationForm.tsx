@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import { InputStyle } from "../../pages/Authorization/Authorization";
 import InputMask from "react-input-mask";
 import { Button } from "../../pages/Authorization/Authorization";
-import { appendErrors, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { DataUsers, IsRegFields } from "../../app.interface";
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { setDataUser } from "../../store/store";
+import { setCurrentId, setDataUser } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import { getAllByPlaceholderText } from "@testing-library/react";
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -50,6 +49,7 @@ const AuthorizationForm = () => {
     register,
     handleSubmit,
   } = useForm<IsRegFields>();
+
   const dataUsers = useAppSelector(state => state.root.dataUsers);
 
   const onSubmit: SubmitHandler<IsRegFields> = (data) => {
@@ -61,6 +61,7 @@ const AuthorizationForm = () => {
         localStorage.setItem('nameUser', dataUser.name);
         navigate('/contacts');
         success = true; 
+        dispatch(setCurrentId(dataUser.id));
       }
     });
 

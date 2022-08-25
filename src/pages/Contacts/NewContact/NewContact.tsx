@@ -1,7 +1,12 @@
+import { useForm, SubmitHandler} from 'react-hook-form';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { openAdd } from '../../../store/store';
+import { ContactInfo, DataUsers, IsRegFields } from '../../../app.interface';
 
 const NewContactStyle = styled.div`
-    display: none;
+    display: block;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -54,18 +59,40 @@ const FormBtn = styled.button`
     background-color: green;
     border-radius: 10px;
     text-transform: uppercase;
+    cursor: pointer;
 `;
 
 const NewContact = () => {
+    const dataUsers = useAppSelector(state => state.root.dataUsers);
+    const currentId = useAppSelector(state => state.root.currentUser);
+    const dispatch = useAppDispatch();
+    const {register, handleSubmit} = useForm<IsRegFields>();
+
+    const onSubmit: SubmitHandler<IsRegFields> = (data) => {
+        const dataContact: ContactInfo = {
+            name: data.name,
+            tel: data.tel,
+        };
+
+        dataUsers.map((dataUser: DataUsers) => {
+            if(currentId === dataUser.id) {
+                axios.post('http://localhost:3001/users', dataContact);
+                console.log(dataUser.contacts)
+            }
+        });
+        
+        dispatch(openAdd(false));
+    };
+
     return(
         <NewContactStyle>
             <Title>Добавление контакта</Title>
-            <Form>
-                <Input placeholder="Введите имя"/>
-                <Input placeholder="Введите номер"/>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <Input {...register('name')} placeholder="Введите имя"/>
+                <Input {...register('tel')} placeholder="Введите номер"/>
                 <FormBtn type="submit">Сохранить</FormBtn>
             </Form>
-            <CloseBtn>+</CloseBtn>
+            <CloseBtn onClick={() => dispatch(openAdd(false))}>+</CloseBtn>
         </NewContactStyle>
     );
 };

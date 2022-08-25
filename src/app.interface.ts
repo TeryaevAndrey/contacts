@@ -8,6 +8,8 @@ export interface InitialState {
   isReg: boolean;
   dataUsers: any;
   name: string;
+  isOpenAdd: boolean;
+  currentUser: string;
 }
 
 export interface DataUsers {
@@ -15,6 +17,7 @@ export interface DataUsers {
   name: string;
   tel: string;
   password: string;
+  contacts: any;
 };
 
 export interface ContactInfo {

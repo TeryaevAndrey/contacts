@@ -5,6 +5,8 @@ import SearchImg from '../../img/search.svg'
 import Contact from './Contact/Contact';
 import NewContact from './NewContact/NewContact';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { openAdd } from '../../store/store';
 
 const ContactsStyle = styled.div`
     min-height: 100vh;
@@ -73,6 +75,8 @@ interface Contacts {
 
 const Contacts = ({name}: Contacts) => {
     const navigate = useNavigate();
+    const isOpen = useAppSelector(state => state.root.isOpenAdd);
+    const dispatch = useAppDispatch();
 
     return(
         <ContactsStyle>
@@ -90,9 +94,9 @@ const Contacts = ({name}: Contacts) => {
 
             </ContactsList>
 
-            <NewContact />
+            {isOpen && <NewContact />}
 
-            <AddBtn src={AddImg} alt="AddContact" />
+            <AddBtn onClick={() => dispatch(openAdd(true))} src={AddImg} alt="AddContact" />
         </ContactsStyle>
     );
 };

@@ -1,14 +1,18 @@
 
 import React from 'react';
 import { InitialState } from "./../app.interface";
-import { createSlice, configureStore, createAsyncThunk, combineReducers } from "@reduxjs/toolkit";
+import { createSlice, configureStore, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { DataUsers, ContactInfo } from './../app.interface';
+import Contact from '../pages/Contacts/Contact/Contact';
 
 
 const initialState: InitialState = {
   isReg: false,
   dataUsers: [],
   name: localStorage.getItem('nameUser') || '',
+  isOpenAdd: false,
+  currentUser: '',
 };
 
 export const getDataUsers = createAsyncThunk(
@@ -30,8 +34,14 @@ const rootSlice = createSlice({
       state.name = action.payload;
     },
     setDataUsers: (state, action) => {
-      state.dataUsers = action.payload
-    }
+      state.dataUsers = action.payload;
+    },
+    setCurrentId: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    openAdd: (state, action) => {
+      state.isOpenAdd = action.payload;
+    },
   },
 });
 
@@ -41,7 +51,7 @@ export const store = configureStore({
   },
 });
 
-export const { successRegForm, setDataUsers, setDataUser } = rootSlice.actions;
+export const { successRegForm, setDataUsers, setDataUser, setCurrentId, openAdd } = rootSlice.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

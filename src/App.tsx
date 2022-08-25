@@ -1,10 +1,9 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components';
 import { BaseInputStyle } from './pages/Authorization/Authorization';
-import { getDataUsers } from "./store/store";
-import { useAppDispatch } from './store/hooks';
+import { getDataUsers, successRegForm } from "./store/store";
+import { useAppDispatch, useAppSelector } from './store/hooks';
 import { Routes, Route } from 'react-router-dom';
-import { useAppSelector } from './store/hooks';
 import AuthorizationForm from './components/Forms/AuthorizationForm';
 import RegistrationForm from './components/Forms/RegistrationForm';
 import Contacts from './pages/Contacts/Contacts';
