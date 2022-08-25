@@ -58,11 +58,11 @@ const Contact = ({name, tel, id}: ContactInfoProps) => {
 
     return(
         <ContactStyle>
-            {isOpenEdit && <EditForm id={id} name={name} tel={tel}/>}
+            {isOpenEdit.stateEdit && <EditForm id={isOpenEdit.contactId} name={isOpenEdit.contactName} tel={isOpenEdit.contactTel}/>}
             <Name>{name}</Name>
             <Tel>{tel}</Tel>
             <IconWrapper>
-                <Icon onClick={() => dispatch(openEdit(true))} src={EditImg} alt="edit" />
+                <Icon onClick={() => dispatch(openEdit({stateEdit: true, contactId: id, contactName: name, contactTel: tel}))} src={EditImg} alt="edit" />
                 <Icon onClick={() => deleteContact(id)} src={DeleteImg} alt="delete" />
             </IconWrapper>
         </ContactStyle>

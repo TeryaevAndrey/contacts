@@ -12,7 +12,12 @@ export interface InitialState {
   isOpenAdd: boolean;
   currentUser: string;
   searchValue: string;
-  isOpenEdit: boolean;
+  isOpenEdit: {
+    stateEdit: boolean,
+    contactId: string,
+    contactName: string,
+    contactTel: string,
+  },
 }
 
 export interface DataUsers {

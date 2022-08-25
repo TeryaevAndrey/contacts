@@ -10,7 +10,12 @@ const initialState: InitialState = {
   isOpenAdd: false,
   currentUser: localStorage.getItem('currentId') || '',
   searchValue: '',
-  isOpenEdit: false,
+  isOpenEdit: {
+    stateEdit: false,
+    contactId: '',
+    contactName: '',
+    contactTel: '',
+  },
 };
 
 export const getDataUsers = createAsyncThunk(

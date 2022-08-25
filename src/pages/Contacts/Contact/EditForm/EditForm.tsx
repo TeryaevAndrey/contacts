@@ -21,8 +21,8 @@ const EditForm = ({id, name, tel}: EditFormProps) => {
     const onSubmit: SubmitHandler<IsRegFields> = (data) => {
         dispatch(getDataContacts());
         axios.patch(`http://localhost:3001/contacts/${id}`, {name: data.name, tel: data.tel});
-        dispatch(openEdit(false));
         dispatch(getDataContacts());
+        dispatch(openEdit(false));
     };
 
     return(

@@ -36,6 +36,7 @@ const RegistrationForm = () => {
       password: data.password,
     };
 
+    dispatch(getDataUsers());
     axios.post("http://localhost:3001/users", setDataUsers);
     dispatch(getDataUsers());
     dispatch(getDataContacts());
