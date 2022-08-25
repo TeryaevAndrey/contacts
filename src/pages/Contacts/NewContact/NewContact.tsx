@@ -8,7 +8,7 @@ import {v1 as uuid} from 'uuid';
 import InputMask from 'react-input-mask';
 import { InputStyle } from '../../Authorization/Authorization';
 
-const NewContactStyle = styled.div`
+export const NewContactStyle = styled.div`
     display: block;
     position: fixed;
     top: 50%;
@@ -20,7 +20,7 @@ const NewContactStyle = styled.div`
     border-radius: 20px;
 `;
 
-const Title = styled.p`
+export const Title = styled.p`
     font-size: 17px;
     font-weight: 600;
     text-transform: uppercase;
@@ -28,7 +28,7 @@ const Title = styled.p`
     margin-top: 30px;
 `;
 
-const CloseBtn = styled.div`
+export const CloseBtn = styled.div`
     position: absolute;
     top: 8px;
     right: 15px;
@@ -38,7 +38,7 @@ const CloseBtn = styled.div`
     cursor: pointer;
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,7 +46,7 @@ const Form = styled.form`
     gap: 30px;
 `;
 
-const FormBtn = styled.button`
+export const FormBtn = styled.button`
     width: 90%;
     min-height: 40px;
     background-color: green;

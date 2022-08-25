@@ -10,6 +10,7 @@ const initialState: InitialState = {
   isOpenAdd: false,
   currentUser: localStorage.getItem('currentId') || '',
   searchValue: '',
+  isOpenEdit: false,
 };
 
 export const getDataUsers = createAsyncThunk(
@@ -52,7 +53,10 @@ const rootSlice = createSlice({
     },
     onChangeSearch: (state, action) => {
       state.searchValue = action.payload;
-    }
+    },
+    openEdit: (state, action) => {
+      state.isOpenEdit = action.payload;
+    },
   },
 });
 
@@ -62,7 +66,7 @@ export const store = configureStore({
   },
 });
 
-export const { successRegForm, setDataUsers, setDataUser, setCurrentId, openAdd, setDataContacts, onChangeSearch } = rootSlice.actions;
+export const { successRegForm, setDataUsers, setDataUser, setCurrentId, openAdd, setDataContacts, onChangeSearch, openEdit } = rootSlice.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

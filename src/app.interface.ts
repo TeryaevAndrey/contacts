@@ -12,6 +12,7 @@ export interface InitialState {
   isOpenAdd: boolean;
   currentUser: string;
   searchValue: string;
+  isOpenEdit: boolean;
 }
 
 export interface DataUsers {
