@@ -12,7 +12,7 @@ import {
 } from "./AuthorizationForm";
 import { IsRegFields } from "../../app.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getDataUsers, successRegForm } from "../../store/store";
+import { getDataContacts, getDataUsers, successRegForm } from "../../store/store";
 import { InputStyle } from "../../pages/Authorization/Authorization";
 import InputMask from "react-input-mask";
 import { Button } from "../../pages/Authorization/Authorization";
@@ -25,7 +25,7 @@ const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<IsRegFields>();
 
   const onSubmit: SubmitHandler<IsRegFields> = (data) => {
@@ -34,12 +34,12 @@ const RegistrationForm = () => {
       name: data.name,
       tel: data.tel,
       password: data.password,
-      contacts: [],
     };
 
     axios.post("http://localhost:3001/users", setDataUsers);
-    dispatch(successRegForm());
     dispatch(getDataUsers());
+    dispatch(getDataContacts());
+    dispatch(successRegForm());
   };
 
   return (

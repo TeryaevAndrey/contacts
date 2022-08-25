@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, {createGlobalStyle} from 'styled-components';
 import { BaseInputStyle } from './pages/Authorization/Authorization';
-import { getDataUsers, successRegForm } from "./store/store";
+import { getDataContacts, getDataUsers } from "./store/store";
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { Routes, Route } from 'react-router-dom';
 import AuthorizationForm from './components/Forms/AuthorizationForm';
@@ -52,6 +52,7 @@ function App() {
 
   React.useEffect(() => {
     dispatch(getDataUsers());
+    dispatch(getDataContacts());
   }, []);
 
   return (

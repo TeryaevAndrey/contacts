@@ -62,12 +62,15 @@ const AuthorizationForm = () => {
         navigate('/contacts');
         success = true; 
         dispatch(setCurrentId(dataUser.id));
+        localStorage.setItem('currentId', dataUser.id);
       }
     });
 
     if(success === false) {
       alert('Неверный номер или пароль')
     }
+
+    success = false;
   };
 
   return (

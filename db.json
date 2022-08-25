@@ -1,16 +1,24 @@
 {
   "users": [
     {
-      "id": "cfa75d20-2402-11ed-a4fe-41ec2979a6f9",
+      "id": "ff8a0ff0-245d-11ed-98e1-a1525f9a7e18",
       "name": "Andrey",
       "tel": "+7 (951) 151-56-27",
-      "password": "1479314ade777",
-      "contacts": [
-        {
-          "name": "andrey",
-          "tel": "+7 (951) 151-56-27"
-        }
-      ]
+      "password": "1479314ade777"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "ab0ed610-2460-11ed-abd7-734968a63793",
+      "userId": "ff8a0ff0-245d-11ed-98e1-a1525f9a7e18",
+      "name": "Андрей",
+      "tel": "+7 (123) 781-27-89"
+    },
+    {
+      "id": "3626ad20-2463-11ed-a8d1-93af69e41249",
+      "userId": "ff8a0ff0-245d-11ed-98e1-a1525f9a7e18",
+      "name": "234",
+      "tel": "+7 (123) 312-12-12"
     }
   ]
 }

@@ -1,18 +1,15 @@
-
-import React from 'react';
 import { InitialState } from "./../app.interface";
 import { createSlice, configureStore, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { DataUsers, ContactInfo } from './../app.interface';
-import Contact from '../pages/Contacts/Contact/Contact';
-
 
 const initialState: InitialState = {
   isReg: false,
   dataUsers: [],
+  dataContacts: [],
   name: localStorage.getItem('nameUser') || '',
   isOpenAdd: false,
-  currentUser: '',
+  currentUser: localStorage.getItem('currentId') || '',
+  searchValue: '',
 };
 
 export const getDataUsers = createAsyncThunk(
@@ -21,7 +18,15 @@ export const getDataUsers = createAsyncThunk(
     const res = await axios.get('http://localhost:3001/users');
     dispatch(setDataUsers(res.data));
   }
-)
+);
+
+export const getDataContacts = createAsyncThunk(
+  'dataContacts/getDataContacts',
+  async(_, {dispatch}) => {
+    const res = await axios.get('http://localhost:3001/contacts');
+    dispatch(setDataContacts(res.data));
+  }
+);
 
 const rootSlice = createSlice({
   name: "root",
@@ -42,6 +47,12 @@ const rootSlice = createSlice({
     openAdd: (state, action) => {
       state.isOpenAdd = action.payload;
     },
+    setDataContacts: (state, action) => {
+      state.dataContacts = action.payload;
+    },
+    onChangeSearch: (state, action) => {
+      state.searchValue = action.payload;
+    }
   },
 });
 
@@ -51,7 +62,7 @@ export const store = configureStore({
   },
 });
 
-export const { successRegForm, setDataUsers, setDataUser, setCurrentId, openAdd } = rootSlice.actions;
+export const { successRegForm, setDataUsers, setDataUser, setCurrentId, openAdd, setDataContacts, onChangeSearch } = rootSlice.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

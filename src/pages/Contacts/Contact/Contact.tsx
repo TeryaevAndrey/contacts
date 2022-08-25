@@ -1,7 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import EditImg from '../../../img/edit.svg';
 import DeleteImg from '../../../img/delete.svg';
-import { ContactInfo } from '../../../app.interface';
+import axios from 'axios';
+import { useAppDispatch } from '../../../store/hooks';
+import { getDataContacts } from '../../../store/store';
+import CheckImg from '../../../img/check.svg';
 
 const ContactStyle = styled.div`
     display: flex;
@@ -38,14 +42,36 @@ const Icon = styled.img`
     cursor: pointer;
 `;
 
-const Contact = ({name, tel}: ContactInfo) => {
+interface ContactInfoProps {
+    name: string;
+    tel: string;
+    id: string
+}
+
+const Contact = ({name, tel, id}: ContactInfoProps) => {
+    const [edit, setEdit] = React.useState(false);
+    const dispatch = useAppDispatch();
+    const deleteContact = (id: string) => {
+        axios.delete(`http://localhost:3001/contacts/${id}`);
+        dispatch(getDataContacts());
+    };
+
+    const editInput = () => {
+        setEdit(true);
+    };
+
+    const checkEdit = () => {
+        setEdit(false);
+    }
+
     return(
         <ContactStyle>
-            <Name>{name}</Name>
-            <Tel>{tel}</Tel>
+            <Name contentEditable={edit ? 'true' : 'false'}>{name}</Name>
+            <Tel contentEditable={edit ? 'true' : 'false'}>{tel}</Tel>
             <IconWrapper>
-                <Icon src={EditImg} alt="edit" />
-                <Icon src={DeleteImg} alt="delete" />
+                {edit && <Icon onClick={checkEdit} src={CheckImg} alt="check" />}
+                <Icon onClick={editInput} src={EditImg} alt="edit" />
+                <Icon onClick={() => deleteContact(id)} src={DeleteImg} alt="delete" />
             </IconWrapper>
         </ContactStyle>
     );

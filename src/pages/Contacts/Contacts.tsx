@@ -6,7 +6,8 @@ import Contact from './Contact/Contact';
 import NewContact from './NewContact/NewContact';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { openAdd } from '../../store/store';
+import { onChangeSearch, openAdd } from '../../store/store';
+import { ContactInfo } from '../../app.interface';
 
 const ContactsStyle = styled.div`
     min-height: 100vh;
@@ -45,6 +46,7 @@ const ContactsList = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 25px;
+    gap: 20px;
 `;
 
 const SearchWrapper = styled.div`
@@ -76,7 +78,18 @@ interface Contacts {
 const Contacts = ({name}: Contacts) => {
     const navigate = useNavigate();
     const isOpen = useAppSelector(state => state.root.isOpenAdd);
+    const dataContacts = useAppSelector(state => state.root.dataContacts);
+    const currentId = useAppSelector(state => state.root.currentUser);
+    const searchValue = useAppSelector(state => state.root.searchValue);
     const dispatch = useAppDispatch();
+
+    const filterContacts = dataContacts.filter((dataContact: ContactInfo) => {
+        if(!searchValue) {
+            return dataContact.userId === currentId;
+        } else {
+            return dataContact.userId === currentId && dataContact.name.toLowerCase().includes(searchValue.toLowerCase());
+        }
+    });
 
     return(
         <ContactsStyle>
@@ -87,11 +100,15 @@ const Contacts = ({name}: Contacts) => {
 
             <SearchWrapper>
                 <SearchImgStyle src={SearchImg} alt="search"/>
-                <SearchInput placeholder="Поиск..."/>
+                <SearchInput onChange={(event) => dispatch(onChangeSearch(event.target.value))} value={searchValue} placeholder="Поиск..."/>
             </SearchWrapper>
 
             <ContactsList>
-
+                {
+                    filterContacts.length > 0 ? filterContacts.map((dataContact: ContactInfo) => (
+                        <Contact key={dataContact.id} name={dataContact.name} tel={dataContact.tel} id={dataContact.id} />
+                    )) : <p>Добавьте контакт...</p>
+                }
             </ContactsList>
 
             {isOpen && <NewContact />}

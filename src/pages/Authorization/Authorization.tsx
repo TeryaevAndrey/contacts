@@ -1,8 +1,4 @@
-import AuthorizationForm from "../../components/Forms/AuthorizationForm";
-import RegistrationForm from "../../components/Forms/RegistrationForm";
-import {Routes, Route} from "react-router-dom"
 import styled, {css} from 'styled-components';
-import Contacts from "../Contacts/Contacts";
 
 export const BaseInputStyle = css`
   width: 100%;
@@ -36,17 +32,3 @@ export const Button = styled.button`
 export const InputStyle = styled.input`
   ${BaseInputStyle}
 `;
-
-export interface RegFormData {
-    email: string;
-    password: string;
-    passwordRepeat: string;
-};
-
-const Authorization = () => {
-    return(
-        <></>
-    );
-};
-
-export default Authorization;

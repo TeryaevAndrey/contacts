@@ -2,8 +2,11 @@ import { useForm, SubmitHandler} from 'react-hook-form';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { openAdd } from '../../../store/store';
+import { getDataContacts, openAdd } from '../../../store/store';
 import { ContactInfo, DataUsers, IsRegFields } from '../../../app.interface';
+import {v1 as uuid} from 'uuid';
+import InputMask from 'react-input-mask';
+import { InputStyle } from '../../Authorization/Authorization';
 
 const NewContactStyle = styled.div`
     display: block;
@@ -43,16 +46,6 @@ const Form = styled.form`
     gap: 30px;
 `;
 
-const Input = styled.input`
-    width: 90%;
-    min-height: 40px;
-    color: #000;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 15px 20px;
-    border-radius: 10px;
-`;
-
 const FormBtn = styled.button`
     width: 90%;
     min-height: 40px;
@@ -70,17 +63,22 @@ const NewContact = () => {
 
     const onSubmit: SubmitHandler<IsRegFields> = (data) => {
         const dataContact: ContactInfo = {
+            id: uuid(),
+            userId: currentId,
             name: data.name,
             tel: data.tel,
         };
 
-        dataUsers.map((dataUser: DataUsers) => {
+        dispatch(getDataContacts());
+
+        dataUsers.forEach((dataUser: DataUsers) => {
             if(currentId === dataUser.id) {
-                axios.post('http://localhost:3001/users', dataContact);
-                console.log(dataUser.contacts)
-            }
+                axios.post('http://localhost:3001/contacts', dataContact);
+            }    
         });
-        
+
+        dispatch(getDataContacts());
+
         dispatch(openAdd(false));
     };
 
@@ -88,8 +86,8 @@ const NewContact = () => {
         <NewContactStyle>
             <Title>Добавление контакта</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Input {...register('name')} placeholder="Введите имя"/>
-                <Input {...register('tel')} placeholder="Введите номер"/>
+                <InputStyle {...register('name')} placeholder="Введите имя" autoComplete='off'/>
+                <InputMask className="InputMask" mask="+7 (999) 999-99-99" {...register('tel', {required: 'true'})} placeholder="Введите номер" autoComplete='off'/>
                 <FormBtn type="submit">Сохранить</FormBtn>
             </Form>
             <CloseBtn onClick={() => dispatch(openAdd(false))}>+</CloseBtn>

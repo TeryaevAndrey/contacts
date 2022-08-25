@@ -6,10 +6,12 @@ export interface IsRegFields {
 
 export interface InitialState {
   isReg: boolean;
-  dataUsers: any;
+  dataUsers: [];
+  dataContacts: [],
   name: string;
   isOpenAdd: boolean;
   currentUser: string;
+  searchValue: string;
 }
 
 export interface DataUsers {
@@ -17,10 +19,11 @@ export interface DataUsers {
   name: string;
   tel: string;
   password: string;
-  contacts: any;
 };
 
 export interface ContactInfo {
+  id: string;
+  userId: string;
   name: string;
   tel: string;
 };
