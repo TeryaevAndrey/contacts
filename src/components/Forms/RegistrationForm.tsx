@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -12,10 +11,13 @@ import {
 } from "./AuthorizationForm";
 import { IsRegFields } from "../../app.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getDataContacts, getDataUsers, successRegForm } from "../../store/store";
-import { InputStyle } from "../../pages/Authorization/Authorization";
+import {
+  getDataContacts,
+  getDataUsers,
+  successRegForm,
+} from "../../store/store";
+import { InputStyle, Button } from "../../App";
 import InputMask from "react-input-mask";
-import { Button } from "../../pages/Authorization/Authorization";
 import { DataUsers } from "../../app.interface";
 
 const RegistrationForm = () => {
@@ -25,7 +27,7 @@ const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<IsRegFields>();
 
   const onSubmit: SubmitHandler<IsRegFields> = (data) => {

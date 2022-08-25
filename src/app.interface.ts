@@ -7,17 +7,17 @@ export interface IsRegFields {
 export interface InitialState {
   isReg: boolean;
   dataUsers: [];
-  dataContacts: [],
+  dataContacts: [];
   name: string;
   isOpenAdd: boolean;
   currentUser: string;
   searchValue: string;
   isOpenEdit: {
-    stateEdit: boolean,
-    contactId: string,
-    contactName: string,
-    contactTel: string,
-  },
+    stateEdit: boolean;
+    contactId: string;
+    contactName: string;
+    contactTel: string;
+  };
 }
 
 export interface DataUsers {
@@ -25,11 +25,11 @@ export interface DataUsers {
   name: string;
   tel: string;
   password: string;
-};
+}
 
 export interface ContactInfo {
   id: string;
   userId: string;
   name: string;
   tel: string;
-};
+}

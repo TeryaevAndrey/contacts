@@ -1,12 +1,12 @@
 import { useForm, SubmitHandler} from 'react-hook-form';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { getDataContacts, openAdd } from '../../../store/store';
-import { ContactInfo, DataUsers, IsRegFields } from '../../../app.interface';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getDataContacts, openAdd } from '../../store/store';
+import { ContactInfo, DataUsers, IsRegFields } from '../../app.interface';
 import {v1 as uuid} from 'uuid';
 import InputMask from 'react-input-mask';
-import { InputStyle } from '../../Authorization/Authorization';
+import { InputStyle } from '../../App';
 
 export const NewContactStyle = styled.div`
     display: block;

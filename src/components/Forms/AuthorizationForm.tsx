@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { InputStyle } from "../../pages/Authorization/Authorization";
+import { Button } from '../../App';
 import InputMask from "react-input-mask";
-import { Button } from "../../pages/Authorization/Authorization";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { DataUsers, IsRegFields } from "../../app.interface";
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setCurrentId, setDataUser } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+import { InputStyle } from "../../App";
 
 export const FormWrapper = styled.div`
   display: flex;

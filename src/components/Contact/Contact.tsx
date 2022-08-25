@@ -1,11 +1,10 @@
-import React from 'react';
 import styled from 'styled-components';
-import EditImg from '../../../img/edit.svg';
-import DeleteImg from '../../../img/delete.svg';
+import EditImg from '../../img/edit.svg';
+import DeleteImg from '../../img/delete.svg';
 import axios from 'axios';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { getDataContacts, openEdit } from '../../../store/store';
-import EditForm from './EditForm/EditForm';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getDataContacts, openEdit } from '../../store/store';
+import EditForm from '../Forms/EditForm';
 
 const ContactStyle = styled.div`
     display: flex;
