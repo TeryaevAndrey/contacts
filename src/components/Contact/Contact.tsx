@@ -51,6 +51,7 @@ const Contact = ({name, tel, id}: ContactInfoProps) => {
     const isOpenEdit = useAppSelector(state => state.root.isOpenEdit);
     const dispatch = useAppDispatch();
     const deleteContact = (id: string) => {
+        dispatch(getDataContacts());
         axios.delete(`http://localhost:3001/contacts/${id}`);
         dispatch(getDataContacts());
     };
