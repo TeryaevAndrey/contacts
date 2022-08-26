@@ -50,6 +50,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     line-height: 1;
     background-color: #19161F;
+    overflow-x: hidden;
   }
 
   input,
